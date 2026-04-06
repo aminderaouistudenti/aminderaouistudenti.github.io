@@ -1,0 +1,1407 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IMAAL</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./IMAAL_PC-style.css" />
+  </head>
+  <body>
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ══════════════════════════════════════
+     LOGIN
+══════════════════════════════════════ -->
+    <div class="page active" id="pg-login">
+      <div class="login-box anim">
+        <div class="login-icon-wrap">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 100 100"
+            width="100%"
+            height="100%"
+          >
+            <defs>
+              <linearGradient
+                id="bg-gradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
+                <stop offset="0%" stop-color="#2844b5" />
+                <stop offset="100%" stop-color="#142171" />
+              </linearGradient>
+            </defs>
+
+            <rect width="100" height="100" rx="15" fill="url(#bg-gradient)" />
+
+            <polyline
+              points="10,45 50,15 90,45"
+              fill="none"
+              stroke="white"
+              stroke-width="7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+
+            <polyline
+              points="72,31.5 72,15 82,15 82,39"
+              fill="none"
+              stroke="white"
+              stroke-width="7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+
+            <path
+              d="M 24 45 L 24 85 L 45 85"
+              fill="none"
+              stroke="white"
+              stroke-width="7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+
+            <path
+              d="M 63 46 A 20 20 0 1 0 68 45 L 68 56"
+              fill="none"
+              stroke="white"
+              stroke-width="7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+
+            <text
+              x="68"
+              y="66"
+              font-family="Arial, sans-serif"
+              font-size="22"
+              fill="white"
+              text-anchor="middle"
+              dominant-baseline="central"
+              font-weight="bold"
+            >
+              $
+            </text>
+          </svg>
+        </div>
+        <div class="login-title">IMAAL</div>
+        <div class="login-sub">Il tuo budget manager personale</div>
+        <div class="login-form">
+          <div class="inp-grp">
+            <label class="inp-label">Email</label>
+            <div class="inp-row">
+              <input
+                class="inp"
+                id="loginEmail"
+                type="email"
+                placeholder="marco@imaal.it"
+                value="marco@imaal.it"
+              />
+            </div>
+          </div>
+          <div class="inp-grp">
+            <label class="inp-label">Password</label>
+            <div class="inp-row">
+              <input
+                class="inp"
+                id="loginPass"
+                type="password"
+                placeholder="••••••••"
+                value="password"
+              />
+              <button class="eye-btn" id="eyeBtn" onclick="togglePwd()">
+                👁
+              </button>
+            </div>
+          </div>
+          <button class="login-btn" id="loginBtn" onclick="doLogin()">
+            Accedi
+          </button>
+          <div class="loader" id="loginLoader"></div>
+          <div class="login-hint">
+            Premi Accedi per entrare (qualsiasi credenziale)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+     APP
+══════════════════════════════════════ -->
+    <div class="page" id="pg-app">
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <div class="sidebar-logo">
+          <div class="sidebar-logo-icon">
+            <svg viewBox="0 0 50 50" fill="none">
+              <path
+                d="M6 24L25 6L44 24V46H32V32H18V46H6V24Z"
+                fill="white"
+                fill-opacity=".9"
+              />
+              <circle
+                cx="36"
+                cy="38"
+                r="11"
+                fill="#3b41f0"
+                stroke="white"
+                stroke-width="2"
+              />
+              <text
+                x="36"
+                y="43"
+                text-anchor="middle"
+                fill="white"
+                font-size="13"
+                font-weight="bold"
+                font-family="DM Sans"
+              >
+                $
+              </text>
+            </svg>
+          </div>
+          <span class="sidebar-logo-name">IMAAL</span>
+        </div>
+        <nav class="sidebar-nav">
+          <button class="nav-item active" onclick="navTo('home')">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            <span>Dashboard</span>
+          </button>
+          <button class="nav-item" onclick="navTo('trans')">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+              <polyline points="17 6 23 6 23 12" />
+            </svg>
+            <span>Transazioni</span>
+          </button>
+          <button class="nav-item" onclick="navTo('entrate')">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <line x1="12" y1="19" x2="12" y2="5" />
+              <polyline points="5 12 12 5 19 12" />
+            </svg>
+            <span>Nuova Entrata</span>
+          </button>
+          <button class="nav-item" onclick="navTo('uscite')">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <polyline points="19 12 12 19 5 12" />
+            </svg>
+            <span>Nuova Uscita</span>
+          </button>
+          <div class="nav-section">Altro</div>
+          <button class="nav-item" onclick="navTo('report')">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <line x1="3" y1="9" x2="21" y2="9" />
+              <line x1="9" y1="21" x2="9" y2="9" />
+            </svg>
+            <span>Report</span>
+          </button>
+          <button class="nav-item" onclick="navTo('settings')">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"
+              />
+            </svg>
+            <span>Impostazioni</span>
+          </button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="user-card" onclick="openModal('modal-profile')">
+            <div class="avatar" id="sideAvatar">MR</div>
+            <div class="user-info">
+              <div class="user-name" id="sidebarName">Marco Rossi</div>
+              <div class="user-email" id="sidebarEmail">
+                <a
+                  href="/cdn-cgi/l/email-protection"
+                  class="__cf_email__"
+                  data-cfemail="b4d9d5c6d7dbf4ddd9d5d5d89addc0"
+                  >[email&#160;protected]</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN -->
+      <div class="main">
+        <div class="top-bar">
+          <div>
+            <span class="top-bar-title" id="topBarTitle">Dashboard</span>
+            <span class="top-bar-sub" id="topBarSub">Marzo 2026</span>
+          </div>
+          <div class="top-bar-right">
+            <div class="sync-badge" onclick="doSync()">
+              <span class="sync-icon" id="syncIco">↻</span>
+              <span id="syncLabel">Sincronizzato · 2 min fa</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- DASHBOARD -->
+        <div class="content active" id="content-home">
+          <div class="grid4">
+            <div class="kpi">
+              <div class="kpi-lbl">Saldo Totale</div>
+              <div class="kpi-val">
+                <span id="curSymbol">€</span
+                ><span id="totalBalance">8.450</span>
+              </div>
+              <div class="kpi-sub">Marzo 2026</div>
+            </div>
+            <div
+              class="kpi"
+              style="cursor: pointer"
+              onclick="openModal('modal-detail-in')"
+            >
+              <div class="kpi-lbl">Entrate</div>
+              <div class="kpi-val" style="color: var(--green)" id="totalIn">
+                +€3.200
+              </div>
+              <div class="kpi-sub">Clicca per dettagli</div>
+            </div>
+            <div
+              class="kpi"
+              style="cursor: pointer"
+              onclick="openModal('modal-detail-out')"
+            >
+              <div class="kpi-lbl">Uscite</div>
+              <div class="kpi-val" style="color: var(--red)" id="totalOut">
+                -€1.750
+              </div>
+              <div class="kpi-sub">Clicca per dettagli</div>
+            </div>
+            <div
+              class="kpi"
+              style="cursor: pointer"
+              onclick="openModal('modal-balance')"
+            >
+              <div class="kpi-lbl">Transazioni</div>
+              <div class="kpi-val" id="txBadge">7</div>
+              <div class="kpi-sub">Questo mese</div>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div class="section-card">
+              <div class="section-head">
+                <div class="section-title">Carte collegate</div>
+                <button
+                  class="section-link"
+                  onclick="openModal('modal-addcard')"
+                >
+                  + Aggiungi
+                </button>
+              </div>
+              <div class="cards-row" id="cardsRow"></div>
+            </div>
+            <div class="section-card">
+              <div class="section-head">
+                <div class="section-title">Andamento</div>
+                <div class="period-tabs">
+                  <button class="period-tab" onclick="setPeriod('3m', this)">
+                    3M
+                  </button>
+                  <button
+                    class="period-tab active"
+                    onclick="setPeriod('6m', this)"
+                  >
+                    6M
+                  </button>
+                  <button class="period-tab" onclick="setPeriod('1y', this)">
+                    1A
+                  </button>
+                </div>
+              </div>
+              <div class="bar-area" id="barChart"></div>
+              <div
+                style="
+                  display: flex;
+                  gap: 16px;
+                  margin-top: 12px;
+                  font-size: 11px;
+                  color: var(--w40);
+                "
+              >
+                <span style="display: flex; align-items: center; gap: 5px"
+                  ><span
+                    style="
+                      width: 10px;
+                      height: 10px;
+                      border-radius: 2px;
+                      background: var(--green);
+                      display: inline-block;
+                    "
+                  ></span
+                  >Entrate</span
+                >
+                <span style="display: flex; align-items: center; gap: 5px"
+                  ><span
+                    style="
+                      width: 10px;
+                      height: 10px;
+                      border-radius: 2px;
+                      background: var(--red);
+                      display: inline-block;
+                    "
+                  ></span
+                  >Uscite</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div class="section-card">
+              <div class="section-head">
+                <div class="section-title">Movimenti recenti</div>
+                <button class="section-link" onclick="navTo('trans')">
+                  Vedi tutti
+                </button>
+              </div>
+              <div id="recentList"></div>
+            </div>
+            <div class="section-card">
+              <div class="section-head">
+                <div class="section-title">Spesa per carta</div>
+              </div>
+              <div id="cardProgressBars"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TRANSAZIONI -->
+        <div class="content" id="content-trans">
+          <div class="section-card">
+            <div class="section-head">
+              <div class="section-title">Tutte le transazioni</div>
+              <button class="section-link" onclick="openModal('modal-export')">
+                Esporta
+              </button>
+            </div>
+            <input
+              class="search-inp"
+              id="txSearch"
+              placeholder="Cerca transazione..."
+              oninput="renderTxList()"
+            />
+            <div class="filter-tabs" id="filterTabs">
+              <button
+                class="filter-tab active"
+                onclick="setFilterGroup('tipo', this)"
+              >
+                Tipo
+              </button>
+              <button
+                class="filter-tab"
+                onclick="setFilterGroup('carta', this)"
+              >
+                Carta
+              </button>
+              <button
+                class="filter-tab"
+                onclick="setFilterGroup('categoria', this)"
+              >
+                Categoria
+              </button>
+            </div>
+
+            <!-- Gruppo: Tipo -->
+            <div class="chips" id="chips-tipo">
+              <button class="chip active" onclick="filterTx('all', this)">
+                Tutti
+              </button>
+              <button class="chip" onclick="filterTx('in', this)">
+                📈 Entrate
+              </button>
+              <button class="chip" onclick="filterTx('out', this)">
+                📉 Uscite
+              </button>
+            </div>
+
+            <!-- Gruppo: Carta -->
+            <div class="chips hidden" id="chips-carta">
+              <button class="chip active" onclick="filterTx('all', this)">
+                Tutti
+              </button>
+              <button class="chip" onclick="filterTx('visa', this)">
+                Visa
+              </button>
+              <button class="chip" onclick="filterTx('mc', this)">
+                Mastercard
+              </button>
+              <button class="chip" onclick="filterTx('amex', this)">
+                Amex
+              </button>
+              <button class="chip" onclick="filterTx('n26', this)">N26</button>
+            </div>
+
+            <!-- Gruppo: Categoria -->
+            <div class="chips hidden" id="chips-categoria">
+              <button class="chip active" onclick="filterTx('all', this)">
+                Tutte
+              </button>
+              <div class="chip-group-label">↑ Entrate</div>
+              <button
+                class="chip cat-in"
+                onclick="filterTx('cat:Affitto', this)"
+              >
+                🏠 Affitto
+              </button>
+              <button
+                class="chip cat-in"
+                onclick="filterTx('cat:Stipendio', this)"
+              >
+                💼 Stipendio
+              </button>
+              <button
+                class="chip cat-in"
+                onclick="filterTx('cat:Investimento', this)"
+              >
+                📈 Investimento
+              </button>
+              <button
+                class="chip cat-in"
+                onclick="filterTx('cat:Rimborso', this)"
+              >
+                ↩️ Rimborso
+              </button>
+              <button
+                class="chip cat-in"
+                onclick="filterTx('cat:Vendita', this)"
+              >
+                🏷️ Vendita
+              </button>
+              <button class="chip cat-in" onclick="filterTx('cat:Bonus', this)">
+                🎁 Bonus
+              </button>
+              <button
+                class="chip cat-in"
+                onclick="filterTx('cat:Dividendo', this)"
+              >
+                💰 Dividendo
+              </button>
+              <div class="chip-group-label">↓ Uscite</div>
+              <button
+                class="chip cat-out"
+                onclick="filterTx('cat:Utenze', this)"
+              >
+                💡 Utenze
+              </button>
+              <button
+                class="chip cat-out"
+                onclick="filterTx('cat:Manutenzione', this)"
+              >
+                🔧 Manutenzione
+              </button>
+              <button
+                class="chip cat-out"
+                onclick="filterTx('cat:Tasse', this)"
+              >
+                🏛️ Tasse
+              </button>
+              <button
+                class="chip cat-out"
+                onclick="filterTx('cat:Assicuraz.', this)"
+              >
+                🛡️ Assicuraz.
+              </button>
+              <button
+                class="chip cat-out"
+                onclick="filterTx('cat:Mutuo', this)"
+              >
+                🏦 Mutuo
+              </button>
+              <button
+                class="chip cat-out"
+                onclick="filterTx('cat:Spesa', this)"
+              >
+                🛒 Spesa
+              </button>
+              <button
+                class="chip cat-out"
+                onclick="filterTx('cat:Trasporto', this)"
+              >
+                🚗 Trasporto
+              </button>
+              <button
+                class="chip cat-out"
+                onclick="filterTx('cat:Altro', this)"
+              >
+                ➕ Altro
+              </button>
+            </div>
+            <div id="txList"></div>
+          </div>
+          <div class="section-card">
+            <div class="section-head">
+              <div class="section-title">Febbraio 2026</div>
+            </div>
+            <div id="txListFeb"></div>
+          </div>
+        </div>
+
+        <!-- NUOVA ENTRATA -->
+        <div class="content" id="content-entrate">
+          <div style="max-width: 680px; margin: 0 auto">
+            <div class="section-card">
+              <div class="section-title" style="margin-bottom: 20px">
+                Registra Entrata
+              </div>
+              <div class="form-row c2">
+                <div class="form-grp">
+                  <label>Importo</label>
+                  <input
+                    class="form-inp"
+                    id="inAmt"
+                    type="number"
+                    step="0.01"
+                    placeholder="0,00"
+                    oninput="updateAmtPreview('in')"
+                  />
+                </div>
+                <div class="form-grp">
+                  <label>Carta / Conto</label>
+                  <select class="form-inp form-sel" id="inCard">
+                    <option value="visa">Visa ••4821</option>
+                    <option value="mc">Mastercard ••7730</option>
+                    <option value="amex">Amex ••0054</option>
+                    <option value="n26">N26 ••3391</option>
+                    <option value="cash">Contanti</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row c2">
+                <div class="form-grp">
+                  <label>Descrizione</label>
+                  <input
+                    class="form-inp"
+                    id="inDesc"
+                    type="text"
+                    placeholder="es. Stipendio marzo..."
+                  />
+                </div>
+                <div class="form-grp">
+                  <label>Data</label>
+                  <input class="form-inp" id="inDate" type="date" />
+                </div>
+              </div>
+              <div class="form-grp" style="margin-bottom: 16px">
+                <label>Categoria</label>
+                <div class="cat-grid" id="inCatGrid">
+                  <div class="cat-chip sel" data-cat="Stipendio">Stipendio</div>
+                  <div class="cat-chip" data-cat="Affitto">Affitto</div>
+                  <div class="cat-chip" data-cat="Investimento">
+                    Investimento
+                  </div>
+                  <div class="cat-chip" data-cat="Rimborso">Rimborso</div>
+                  <div class="cat-chip" data-cat="Vendita">Vendita</div>
+                  <div class="cat-chip" data-cat="Bonus">Bonus</div>
+                  <div class="cat-chip" data-cat="Dividendo">Dividendo</div>
+                  <div class="cat-chip" data-cat="Altro">Altro</div>
+                </div>
+              </div>
+              <div class="form-grp" style="margin-bottom: 16px">
+                <label>Note (opzionale)</label>
+                <input
+                  class="form-inp"
+                  id="inNote"
+                  type="text"
+                  placeholder="Aggiungi una nota..."
+                />
+              </div>
+              <div class="amt-preview" id="inAmtPreview"></div>
+              <button
+                class="btn-submit"
+                id="btnSubmitIn"
+                disabled
+                onclick="submitEntry('in')"
+              >
+                Inserisci importo e descrizione
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- NUOVA USCITA -->
+        <div class="content" id="content-uscite">
+          <div style="max-width: 680px; margin: 0 auto">
+            <div class="section-card">
+              <div class="section-title" style="margin-bottom: 20px">
+                Registra Uscita
+              </div>
+              <div class="form-row c2">
+                <div class="form-grp">
+                  <label>Importo</label>
+                  <input
+                    class="form-inp"
+                    id="outAmt"
+                    type="number"
+                    step="0.01"
+                    placeholder="0,00"
+                    oninput="updateAmtPreview('out')"
+                  />
+                </div>
+                <div class="form-grp">
+                  <label>Carta / Conto</label>
+                  <select class="form-inp form-sel" id="outCard">
+                    <option value="visa">Visa ••4821</option>
+                    <option value="mc">Mastercard ••7730</option>
+                    <option value="amex">Amex ••0054</option>
+                    <option value="n26">N26 ••3391</option>
+                    <option value="cash">Contanti</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row c2">
+                <div class="form-grp">
+                  <label>Descrizione</label>
+                  <input
+                    class="form-inp"
+                    id="outDesc"
+                    type="text"
+                    placeholder="es. Bolletta Enel..."
+                  />
+                </div>
+                <div class="form-grp">
+                  <label>Data</label>
+                  <input class="form-inp" id="outDate" type="date" />
+                </div>
+              </div>
+              <div class="form-grp" style="margin-bottom: 16px">
+                <label>Categoria</label>
+                <div class="cat-grid" id="outCatGrid">
+                  <div class="cat-chip sel" data-cat="Utenze">Utenze</div>
+                  <div class="cat-chip" data-cat="Manutenzione">
+                    Manutenzione
+                  </div>
+                  <div class="cat-chip" data-cat="Tasse">Tasse</div>
+                  <div class="cat-chip" data-cat="Assicuraz.">
+                    Assicurazione
+                  </div>
+                  <div class="cat-chip" data-cat="Mutuo">Mutuo</div>
+                  <div class="cat-chip" data-cat="Spesa">Spesa</div>
+                  <div class="cat-chip" data-cat="Trasporto">Trasporto</div>
+                  <div class="cat-chip" data-cat="Altro">Altro</div>
+                </div>
+              </div>
+              <div class="form-grp" style="margin-bottom: 16px">
+                <label>Note (opzionale)</label>
+                <input
+                  class="form-inp"
+                  id="outNote"
+                  type="text"
+                  placeholder="Aggiungi una nota..."
+                />
+              </div>
+              <div
+                class="amt-preview"
+                id="outAmtPreview"
+                style="color: var(--red)"
+              ></div>
+              <button
+                class="btn-submit"
+                id="btnSubmitOut"
+                disabled
+                onclick="submitEntry('out')"
+              >
+                Inserisci importo e descrizione
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- REPORT -->
+        <div class="content" id="content-report">
+          <div class="grid4" style="margin-bottom: 20px">
+            <div class="kpi">
+              <div class="kpi-lbl">Entrate</div>
+              <div class="kpi-val" style="color: var(--green)" id="repIn">
+                €3.200
+              </div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-lbl">Uscite</div>
+              <div class="kpi-val" style="color: var(--red)" id="repOut">
+                €1.750
+              </div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-lbl">Saldo netto</div>
+              <div class="kpi-val" id="repNet">€1.450</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-lbl">Movimenti</div>
+              <div class="kpi-val" id="repCount">7</div>
+            </div>
+          </div>
+          <div class="grid2">
+            <div class="section-card">
+              <div class="section-head">
+                <div class="section-title">Riepilogo mensile</div>
+              </div>
+              <div style="padding: 8px 0">
+                <div class="tx-detail-row">
+                  <span class="tx-detail-key">Mese</span
+                  ><span class="tx-detail-val">Marzo 2026</span>
+                </div>
+                <div class="tx-detail-row">
+                  <span class="tx-detail-key">Totale entrate</span
+                  ><span
+                    class="tx-detail-val"
+                    style="color: var(--green)"
+                    id="repIn2"
+                    >€3.200</span
+                  >
+                </div>
+                <div class="tx-detail-row">
+                  <span class="tx-detail-key">Totale uscite</span
+                  ><span
+                    class="tx-detail-val"
+                    style="color: var(--red)"
+                    id="repOut2"
+                    >€1.750</span
+                  >
+                </div>
+                <div class="tx-detail-row">
+                  <span class="tx-detail-key">Saldo netto</span
+                  ><span class="tx-detail-val" id="marSum">+€1.450</span>
+                </div>
+              </div>
+            </div>
+            <div class="section-card">
+              <div class="section-head">
+                <div class="section-title">API Connessioni</div>
+              </div>
+              <div id="apiList"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- IMPOSTAZIONI -->
+        <div class="content" id="content-settings">
+          <div class="grid2">
+            <div>
+              <div class="section-card">
+                <div class="section-head">
+                  <div class="section-title">Profilo</div>
+                </div>
+                <div style="text-align: center; padding: 8px 0 16px">
+                  <div
+                    class="avatar"
+                    style="
+                      width: 64px;
+                      height: 64px;
+                      border-radius: 16px;
+                      font-size: 22px;
+                      margin: 0 auto 12px;
+                    "
+                    id="settingsAvatar"
+                  >
+                    MR
+                  </div>
+                  <div
+                    style="font-size: 16px; font-weight: 700"
+                    id="settingsName"
+                  >
+                    Marco Rossi
+                  </div>
+                  <div
+                    style="font-size: 13px; color: var(--w40); margin-top: 4px"
+                    id="settingsEmail"
+                  >
+                    <a
+                      href="/cdn-cgi/l/email-protection"
+                      class="__cf_email__"
+                      data-cfemail="0865697a6b6748616569696426617c"
+                      >[email&#160;protected]</a
+                    >
+                  </div>
+                </div>
+                <div class="settings-row">
+                  <div><div class="s-lbl">Modifica profilo</div></div>
+                  <button onclick="openModal('modal-profile')" class="s-arrow">
+                    ›
+                  </button>
+                </div>
+                <div class="settings-row">
+                  <div><div class="s-lbl">PIN di sicurezza</div></div>
+                  <button onclick="openModal('modal-pin')" class="s-arrow">
+                    ›
+                  </button>
+                </div>
+                <div class="settings-row">
+                  <div>
+                    <div class="s-lbl">Piano</div>
+                    <div class="s-sub" id="planDesc">PRO attivo</div>
+                  </div>
+                  <button
+                    onclick="openModal('modal-plan')"
+                    class="s-btn-accent"
+                  >
+                    Gestisci ›
+                  </button>
+                </div>
+                <div class="settings-row">
+                  <div><div class="s-lbl">Logout</div></div>
+                  <button
+                    onclick="openModal('modal-logout')"
+                    class="s-btn-danger"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="section-card">
+                <div class="section-head">
+                  <div class="section-title">Preferenze</div>
+                </div>
+                <div class="settings-row">
+                  <div>
+                    <div class="s-lbl">Valuta</div>
+                    <div class="s-sub" id="currDesc">Euro (€)</div>
+                  </div>
+                  <button onclick="openModal('modal-currency')" class="s-arrow">
+                    >
+                  </button>
+                </div>
+                <div class="settings-row">
+                  <div>
+                    <div class="s-lbl">Notifiche</div>
+                    <div class="s-sub" id="notifDesc">Push attive · 3 tipi</div>
+                  </div>
+                  <button onclick="openModal('modal-notif')" class="s-arrow">
+                    >
+                  </button>
+                </div>
+                <div class="settings-row">
+                  <div><div class="s-lbl">Esporta dati</div></div>
+                  <button onclick="openModal('modal-export')" class="s-arrow">
+                    >
+                  </button>
+                </div>
+                <div class="settings-row">
+                  <div><div class="s-lbl">Supporto</div></div>
+                  <button onclick="openModal('modal-support')" class="s-arrow">
+                    >
+                  </button>
+                </div>
+                <div class="settings-row">
+                  <div>
+                    <div class="s-lbl">Termini di Servizio</div>
+                    <div class="s-sub">Privacy & condizioni d'uso</div>
+                  </div>
+                  <button onclick="openModal('modal-tos')" class="s-arrow">
+                    >
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /main -->
+    </div>
+    <!-- /pg-app -->
+
+    <!-- ══════════════════════════════════════
+     MODALS
+══════════════════════════════════════ -->
+    <div class="modal-overlay" id="modal-tx">
+      <div class="modal">
+        <div id="txDetailHeader"></div>
+        <div
+          style="
+            background: var(--w08);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 4px 16px;
+            margin-bottom: 14px;
+          "
+        >
+          <div id="txDetailRows"></div>
+        </div>
+        <button class="btn-danger" onclick="deleteTx()">
+          Elimina transazione
+        </button>
+        <div class="modal-actions" style="margin-top: 10px">
+          <button class="btn-cancel" onclick="closeModal('modal-tx')">
+            Chiudi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-card">
+      <div class="modal">
+        <div class="modal-title">
+          <span id="cardModalTitle">Carta</span
+          ><button class="modal-close" onclick="closeModal('modal-card')">
+            ✕
+          </button>
+        </div>
+        <div id="cardModalBody"></div>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeModal('modal-card')">
+            Chiudi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-addcard">
+      <div class="modal">
+        <div class="modal-title">
+          <span>Aggiungi carta</span
+          ><button class="modal-close" onclick="closeModal('modal-addcard')">
+            ✕
+          </button>
+        </div>
+        <div class="form-grp" style="margin-bottom: 16px">
+          <label>Tipo circuito</label>
+          <div class="card-type-row">
+            <button
+              class="card-type-btn sel"
+              onclick="setNewCardType('visa', this)"
+            >
+              VISA
+            </button>
+            <button class="card-type-btn" onclick="setNewCardType('mc', this)">
+              MASTERCARD
+            </button>
+            <button
+              class="card-type-btn"
+              onclick="setNewCardType('amex', this)"
+            >
+              AMEX
+            </button>
+            <button class="card-type-btn" onclick="setNewCardType('n26', this)">
+              N26
+            </button>
+          </div>
+        </div>
+        <div class="card-preview visa" id="newCardPreview">
+          <div
+            style="
+              font-size: 9px;
+              font-weight: 700;
+              letter-spacing: 1.5px;
+              color: rgba(255, 255, 255, 0.7);
+            "
+            id="newCardNet"
+          >
+            VISA
+          </div>
+          <div
+            style="
+              font-size: 14px;
+              letter-spacing: 3px;
+              color: #fff;
+              margin: 8px 0;
+              font-family: &quot;DM Mono&quot;, monospace;
+            "
+            id="newCardNum"
+          >
+            •••• •••• •••• ••••
+          </div>
+        </div>
+        <div class="form-row c2">
+          <div class="form-grp">
+            <label>Numero carta (16 cifre)</label
+            ><input
+              class="form-inp"
+              id="newCardNumInp"
+              type="text"
+              placeholder="1234 5678 9012 3456"
+              oninput="formatCardNum(this)"
+            />
+          </div>
+          <div class="form-grp">
+            <label>Intestatario</label
+            ><input
+              class="form-inp"
+              id="newCardHolder"
+              type="text"
+              placeholder="NOME COGNOME"
+            />
+          </div>
+        </div>
+        <div class="form-row c2">
+          <div class="form-grp">
+            <label>Scadenza (MM/AA)</label
+            ><input
+              class="form-inp"
+              id="newCardExp"
+              type="text"
+              placeholder="MM/AA"
+              oninput="formatExpiry(this)"
+            />
+          </div>
+          <div class="form-grp">
+            <label>CVV</label
+            ><input
+              class="form-inp"
+              id="newCardCvv"
+              type="password"
+              placeholder="•••"
+              maxlength="4"
+            />
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeModal('modal-addcard')">
+            Annulla</button
+          ><button
+            class="btn-submit"
+            style="flex: 1; margin-top: 0"
+            onclick="addNewCard()"
+          >
+            Collega carta
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-balance">
+      <div class="modal">
+        <div class="modal-title">
+          <span>Dettaglio saldo</span
+          ><button class="modal-close" onclick="closeModal('modal-balance')">
+            ✕
+          </button>
+        </div>
+        <div id="balanceDetailBody"></div>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeModal('modal-balance')">
+            Chiudi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-profile">
+      <div class="modal">
+        <div class="modal-title">
+          <span>Profilo</span
+          ><button class="modal-close" onclick="closeModal('modal-profile')">
+            ✕
+          </button>
+        </div>
+        <div class="profile-av-big" id="profileAv">MR</div>
+        <div class="form-grp" style="margin-bottom: 10px">
+          <label>Avatar</label>
+          <div class="av-grid" id="avSelector"></div>
+        </div>
+        <div class="form-row c2">
+          <div class="form-grp">
+            <label>Nome</label
+            ><input class="form-inp" id="editName" type="text" />
+          </div>
+          <div class="form-grp">
+            <label>Email</label
+            ><input class="form-inp" id="editEmail" type="email" />
+          </div>
+        </div>
+        <div class="form-grp" style="margin-bottom: 16px">
+          <label>Telefono</label
+          ><input class="form-inp" id="editPhone" type="tel" />
+        </div>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeModal('modal-profile')">
+            Annulla</button
+          ><button
+            class="btn-submit"
+            style="flex: 1; margin-top: 0"
+            onclick="saveProfile()"
+          >
+            Salva
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-currency">
+      <div class="modal">
+        <div class="modal-title">
+          <span>Valuta</span
+          ><button class="modal-close" onclick="closeModal('modal-currency')">
+            ✕
+          </button>
+        </div>
+        <div id="currencyList"></div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-theme">
+      <div class="modal">
+        <div class="modal-title">
+          <span>Tema</span
+          ><button class="modal-close" onclick="closeModal('modal-theme')">
+            ✕
+          </button>
+        </div>
+        <div id="themeList"></div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-notif">
+      <div class="modal">
+        <div class="modal-title">
+          <span>Notifiche</span
+          ><button class="modal-close" onclick="closeModal('modal-notif')">
+            ✕
+          </button>
+        </div>
+        <div id="notifList"></div>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeModal('modal-notif')">
+            Chiudi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-export">
+      <div class="modal">
+        <div class="modal-title">
+          <span>Esporta dati</span
+          ><button class="modal-close" onclick="closeModal('modal-export')">
+            ✕
+          </button>
+        </div>
+        <div id="exportList"></div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-support">
+      <div class="modal">
+        <div class="modal-title">
+          <span>Supporto</span
+          ><button class="modal-close" onclick="closeModal('modal-support')">
+            ✕
+          </button>
+        </div>
+        <div id="supportList"></div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-plan">
+      <div class="modal">
+        <div class="modal-title">
+          <span>Il tuo piano</span
+          ><button class="modal-close" onclick="closeModal('modal-plan')">
+            ✕
+          </button>
+        </div>
+        <div id="planBody"></div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-detail-in">
+      <div class="modal">
+        <div class="modal-title">
+          <span>Dettaglio Entrate</span
+          ><button class="modal-close" onclick="closeModal('modal-detail-in')">
+            ✕
+          </button>
+        </div>
+        <div id="detailInBody"></div>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeModal('modal-detail-in')">
+            Chiudi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-detail-out">
+      <div class="modal">
+        <div class="modal-title">
+          <span>Dettaglio Uscite</span
+          ><button class="modal-close" onclick="closeModal('modal-detail-out')">
+            ✕
+          </button>
+        </div>
+        <div id="detailOutBody"></div>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeModal('modal-detail-out')">
+            Chiudi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-pin">
+      <div class="modal" style="max-width: 360px">
+        <div class="modal-title">
+          <span>Imposta PIN</span
+          ><button class="modal-close" onclick="closeModal('modal-pin')">
+            ✕
+          </button>
+        </div>
+        <div class="pin-dots" id="pinDots"></div>
+        <div class="pin-pad" id="pinPad"></div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-logout">
+      <div class="modal" style="max-width: 380px">
+        <div class="modal-title">Logout</div>
+        <p style="color: var(--w70); font-size: 14px; margin-bottom: 24px">
+          Sei sicuro di voler uscire da IMAAL?
+        </p>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeModal('modal-logout')">
+            Annulla
+          </button>
+          <button
+            class="btn-submit"
+            style="
+              flex: 1;
+              margin-top: 0;
+              background: linear-gradient(135deg, #e53e3e, #c53030);
+            "
+            onclick="doLogout()"
+          >
+            Esci
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-tos">
+      <div class="modal" style="max-width: 560px">
+        <div class="modal-title">
+          <span>Termini di Servizio</span>
+          <button class="modal-close" onclick="closeModal('modal-tos')">
+            ✕
+          </button>
+        </div>
+        <div class="tos-body">
+          <div class="tos-section">
+            <div class="tos-title">1. Accettazione dei termini</div>
+            <p>
+              Utilizzando IMAAL accetti integralmente i presenti Termini di
+              Servizio. Se non accetti, ti invitiamo a non utilizzare
+              l'applicazione.
+            </p>
+          </div>
+          <div class="tos-section">
+            <div class="tos-title">2. Descrizione del servizio</div>
+            <p>
+              IMAAL è un'applicazione di gestione del budget personale che
+              consente di monitorare entrate, uscite e carte di pagamento. I
+              dati sono elaborati localmente e in modo sicuro.
+            </p>
+          </div>
+          <div class="tos-section">
+            <div class="tos-title">3. Privacy e dati personali</div>
+            <p>
+              I tuoi dati finanziari sono trattati in conformità al GDPR
+              (Regolamento UE 2016/679). Non condividiamo informazioni con terze
+              parti senza il tuo consenso esplicito.
+            </p>
+          </div>
+          <div class="tos-section">
+            <div class="tos-title">4. Sicurezza</div>
+            <p>
+              Adottiamo misure di sicurezza avanzate (crittografia AES-256,
+              autenticazione a due fattori) per proteggere i tuoi dati. L'utente
+              è responsabile della riservatezza delle proprie credenziali.
+            </p>
+          </div>
+          <div class="tos-section">
+            <div class="tos-title">5. Limitazione di responsabilità</div>
+            <p>
+              IMAAL non è responsabile di eventuali perdite finanziarie
+              derivanti dall'uso improprio dell'applicazione o da errori nella
+              registrazione delle transazioni.
+            </p>
+          </div>
+          <div
+            class="tos-section"
+            style="border-bottom: none; margin-bottom: 0"
+          >
+            <div class="tos-title">6. Modifiche ai termini</div>
+            <p>
+              Ci riserviamo il diritto di modificare i presenti termini in
+              qualsiasi momento. Le modifiche saranno comunicate tramite
+              notifica in-app.
+            </p>
+          </div>
+        </div>
+        <div class="tos-footer">
+          Ultima revisione: gennaio 2026 · Versione 2.1
+        </div>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeModal('modal-tos')">
+            Chiudi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./IMAAL_PC-script.js"></script>
+  </body>
+</html>
